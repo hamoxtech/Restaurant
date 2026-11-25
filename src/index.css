@@ -1,0 +1,176 @@
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+  logs: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "delights";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #f2e6d0;
+  --color-base-200: #eadcc1;
+  --color-base-300: #dfcdae;
+  --color-base-content: #211b18;
+  --color-primary: #8e2424;
+  --color-primary-content: #f2e6d0;
+  --color-secondary: #26382c;
+  --color-secondary-content: #f2e6d0;
+  --color-accent: #26382c;
+  --color-accent-content: #f2e6d0;
+  --color-neutral: #211b18;
+  --color-neutral-content: #f2e6d0;
+  --radius-selector: 999px;
+  --radius-field: 999px;
+  --radius-box: 1.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --color-crimson: #8e2424;
+  --color-crimson-deep: #6e1a1a;
+  --color-crimson-bright: #a83030;
+  --color-cream: #f2e6d0;
+  --color-cream-dim: #e6d6b8;
+  --color-sand: #d9c4a0;
+  --color-olive: #26382c;
+  --color-olive-soft: #3a5142;
+  --color-ink: #211b18;
+  --color-char: #15110f;
+
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 4.5rem;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    font-variation-settings: "wdth" 100;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-crimson);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-cream);
+  }
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+/* Condensed heavy display type — the editorial voice of the brand. */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variation-settings: "wdth" 72;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.86;
+}
+@utility serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144;
+}
+@utility eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@layer components {
+  .dotted-leader {
+    flex: 1;
+    border-bottom: 1px dotted color-mix(in oklab, var(--color-ink) 35%, transparent);
+    transform: translateY(-0.3em);
+  }
+  /* Film grain — a single tiny SVG, rendered once by the GPU. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility btn-pill {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] transition-[background-color,color,box-shadow] duration-300;
+}
+@utility btn-red {
+  @apply btn-pill bg-crimson text-cream hover:bg-crimson-deep;
+}
+@utility btn-olive {
+  @apply btn-pill bg-olive text-cream hover:bg-olive-soft;
+}
+@utility btn-cream {
+  @apply btn-pill bg-cream text-crimson hover:bg-white;
+}
+@utility btn-ghost-cream {
+  @apply btn-pill border border-cream/40 text-cream hover:bg-cream hover:text-crimson;
+}
+@utility btn-ghost-ink {
+  @apply btn-pill border border-ink/25 text-ink hover:bg-ink hover:text-cream;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to { transform: scale(1.0) translate3d(-1%, -1%, 0); }
+}
+@keyframes steam-rise {
+  0% { transform: translate3d(0, 10%, 0) scale(0.9); opacity: 0; }
+  30% { opacity: 0.55; }
+  100% { transform: translate3d(0, -45%, 0) scale(1.35); opacity: 0; }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
